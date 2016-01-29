@@ -8,6 +8,7 @@ Molly is written in Scala and compiled using SBT.  Molly depends on the [C4 Over
 
 The top-level `Makefile` should be handle a one-click build on OS X.
 
+You also might want to install [graphviz](http://www.graphviz.org/) (eg. `brew install graphviz`).
 
 ## Running
 
@@ -15,12 +16,19 @@ Add the native library dependencies to your loader path.  On OS X:
 
 ```
 export LD_LIBRARY_PATH=lib/c4/build/src/libc4/:lib/z3/build/
+export DYLD_LIBRARY_PATH=lib/c4/build/src/libc4/:lib/z3/build/
 ```
 
-Run
+run
 
 ```
 sbt "run-main edu.berkeley.cs.boom.molly.SyncFTChecker"
+```
+
+or inline libs
+
+```
+sbt -Djava.library.path=lib/c4/build/src/libc4/:lib/z3/build/z3-dist/lib/ "run-main edu.berkeley.cs.boom.molly.SyncFTChecker"
 ```
 
 and see the usage message for more details.
@@ -30,7 +38,7 @@ and see the usage message for more details.
 In this directory, run
 
 ```
-sbt "run-main edu.berkeley.cs.boom.molly.SyncFTChecker \
+sbt -Djava.library.path=lib/c4/build/src/libc4/:lib/z3/build/z3-dist/lib/ "run-main edu.berkeley.cs.boom.molly.SyncFTChecker \
 	src/test/resources/examples_ft/delivery/simplog.ded \
 	src/test/resources/examples_ft/delivery/deliv_assert.ded \
 	--EOT 4 \
